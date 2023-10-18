@@ -15,7 +15,23 @@ jobs:
       run: sudo wg-quick up /home/ubuntu/testing.conf
 
     - name: Deploy Application
-      run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /home/ubuntu/go-test/manual/go-talkjs; git pull; go mod tidy; go mod vendor; set GOOS=linux && set GOARCH=amd64 && go build -o bin/talkjs main.go; sudo supervisorctl restart all"
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{secrets.SERVER_HOST}} # IP address of the server you wish to ssh into
+          key: ${{secrets.SSH_SECRET_KEY}} # Private or public key of the server
+          username: ${{ secrets.SERVER_USERNAME }}
+      script: |
+        export GOPATH=$HOME/go-test
+        export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+        cd /home/ubuntu/go-test/manual/go-talkjs
+
+        git pull
+
+        make dep
+        make build
+
+        sudo supervisorctl restart all
 
     - name: Stop WireGuard VPN
       run: sudo wg-quick down /home/ubuntu/testing.conf
