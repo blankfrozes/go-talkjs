@@ -18,23 +18,7 @@ jobs:
       run: sudo wg-quick up /home/ubuntu/testing.conf
 
     - name: Deploy Application
-      uses: ./
-      with:
-          host: ${{ secrets.SERVER_HOST }}
-          key: ${{ secrets.SSH_SECRET_KEY }}
-          username: ${{ secrets.SERVER_USERNAME }}
-      run: |
-        export GOPATH=$HOME/go-test
-        export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-
-        cd /home/ubuntu/go-test/manual/go-talkjs
-
-        git pull
-
-        make dep
-        make build
-
-        sudo supervisorctl restart all
-
+      run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /home/ubuntu/go-test/manual/go-talkjs; git pull; export GOPATH=$HOME/go-test; export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin; make dep; make build; sudo supervisorctl restart all"
+      
     - name: Stop WireGuard VPN
       run: sudo wg-quick down /home/ubuntu/testing.conf
