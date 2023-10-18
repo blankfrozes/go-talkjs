@@ -18,10 +18,10 @@ jobs:
       run: sudo wg-quick up /home/ubuntu/testing.conf
 
     - name: Deploy Application
-      uses: ./
+      uses: appleboy/ssh-action@master
       with:
-          host: ${{secrets.SERVER_HOST}} # IP address of the server you wish to ssh into
-          key: ${{secrets.SSH_SECRET_KEY}} # Private or public key of the server
+          host: ${{ secrets.SERVER_HOST }}
+          key: ${{ secrets.SSH_SECRET_KEY }}
           username: ${{ secrets.SERVER_USERNAME }}
           run: |
             export GOPATH=$HOME/go-test
