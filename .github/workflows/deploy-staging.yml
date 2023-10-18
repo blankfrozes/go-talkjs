@@ -2,11 +2,8 @@ name: Deploy GO App
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deploy to staging'
-        type: environement
-        required: true
+    branches:
+      - staging
 
 jobs:
   deploy:
