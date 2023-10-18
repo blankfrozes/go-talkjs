@@ -1,4 +1,4 @@
-name: Deploy GO App Production
+name: Deploy GO App
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    environment: production
+    environment: staging
 
     steps:
     - name: Checkout code
