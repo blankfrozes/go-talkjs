@@ -20,18 +20,18 @@ jobs:
           host: ${{secrets.SERVER_HOST}} # IP address of the server you wish to ssh into
           key: ${{secrets.SSH_SECRET_KEY}} # Private or public key of the server
           username: ${{ secrets.SERVER_USERNAME }}
-      script: |
-        export GOPATH=$HOME/go-test
-        export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+          script: |
+            export GOPATH=$HOME/go-test
+            export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-        cd /home/ubuntu/go-test/manual/go-talkjs
+            cd /home/ubuntu/go-test/manual/go-talkjs
 
-        git pull
+            git pull
 
-        make dep
-        make build
+            make dep
+            make build
 
-        sudo supervisorctl restart all
+            sudo supervisorctl restart all
 
     - name: Stop WireGuard VPN
       run: sudo wg-quick down /home/ubuntu/testing.conf
