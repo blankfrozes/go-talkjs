@@ -1,14 +1,14 @@
-name: Deploy GO App
+name: Deploy GO App Production
 
 on:
-  workflow_dispatch:
-    branches:
-      - staging
+  push:
+    tags:
+      - prod-v*
 
 jobs:
   deploy:
     runs-on: self-hosted
-    # environment: staging
+    environment: staging
 
     steps:
     - name: Checkout code
