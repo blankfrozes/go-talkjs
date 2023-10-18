@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        Description: 'Deploy to staging'
-        default: 'staging'
+        description: 'Deploy to staging'
+        type: environement
         required: true
 
 jobs:
