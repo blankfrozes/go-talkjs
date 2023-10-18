@@ -1,4 +1,4 @@
-name: Deploy Golang App
+name: Deploy GO App
 
 on:
   push:
@@ -11,11 +11,14 @@ jobs:
     environment: production
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
     - name: Start WireGuard VPN
       run: sudo wg-quick up /home/ubuntu/testing.conf
 
     - name: Deploy Application
-      run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /home/ubuntu/go-test/manual/go-talkjs; git pull; make dep; make build; sudo supervisorctl restart all"
-
+      run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /home/ubuntu/go-test/manual/go-talkjs; git pull; export GOPATH=$HOME/go-test; export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin; make dep; make build; sudo supervisorctl restart all"
+      
     - name: Stop WireGuard VPN
       run: sudo wg-quick down /home/ubuntu/testing.conf
