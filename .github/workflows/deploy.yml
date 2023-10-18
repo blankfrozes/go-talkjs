@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    environment: staging
+    # environment: staging
 
     steps:
     - name: Checkout code
