@@ -4,9 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        type: environment
-        default: main
+        Description: 'Deploy to production'
+        default: 'production'
         required: true
+
 
 jobs:
   deploy:
