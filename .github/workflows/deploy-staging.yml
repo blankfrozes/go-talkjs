@@ -1,10 +1,15 @@
 name: Deploy GO App
 
 on:
-  workflow_dispatch:
   push:
     branches:
-      - staging
+    - staging
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        default: staging
+        required: true
 
 jobs:
   deploy:
