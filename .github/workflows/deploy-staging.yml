@@ -11,6 +11,9 @@ jobs:
     environment: staging
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
     - name: Start WireGuard VPN
       run: sudo wg-quick up /home/ubuntu/testing.conf
 
