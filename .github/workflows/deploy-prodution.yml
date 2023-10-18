@@ -1,9 +1,11 @@
 name: Deploy GO App
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      target-branch:
+        description: 'main'
+        required: true
 
 jobs:
   deploy:
