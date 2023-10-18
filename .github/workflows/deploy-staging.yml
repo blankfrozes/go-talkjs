@@ -1,9 +1,6 @@
 name: Deploy GO App
 
 on:
-  push:
-    branches:
-    - staging
   workflow_dispatch:
     inputs:
       environment:
