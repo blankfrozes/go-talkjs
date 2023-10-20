@@ -18,7 +18,9 @@ jobs:
       run: sudo wg-quick up /home/ubuntu/testing.conf
 
     - name: Deploy Application
+      if: success() || failure()
       run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cd /home/ubuntu/go-test/manual/go-talkjs; git pull; export GOPATH=$HOME/go-test; export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin; make db-status; make dep; make build; sudo supervisorctl restart all"
       
     - name: Stop WireGuard VPN
+      if: success() || failure()
       run: sudo wg-quick down /home/ubuntu/testing.conf
