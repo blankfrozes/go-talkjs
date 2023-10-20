@@ -3,7 +3,7 @@ name: Deploy GO App Production
 on:
   push:
     tags:
-      - prod-v*
+      - p-v*
 
 jobs:
   deploy:
