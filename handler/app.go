@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"test-talkjs/models"
@@ -30,6 +31,8 @@ func App(c *gin.Context) {
 
 	var response models.App
 	_ = json.Unmarshal(resp.Body(), &response)
+
+	log.Println(response)
 
 	c.JSON(http.StatusOK, response)
 }
